@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inbound Lead Qualifier · Aerovane Autonomy (demo)</title>
+  <meta name="description" content="Score inbound enquiries for a drone autonomy company, route them to the right owner and keep follow-ups on time." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231e293b'/><circle cx='9' cy='9' r='4' fill='none' stroke='%2338bdf8' stroke-width='2'/><circle cx='23' cy='9' r='4' fill='none' stroke='%2338bdf8' stroke-width='2'/><circle cx='9' cy='23' r='4' fill='none' stroke='%2338bdf8' stroke-width='2'/><circle cx='23' cy='23' r='4' fill='none' stroke='%2338bdf8' stroke-width='2'/><rect x='12' y='12' width='8' height='8' rx='2' fill='%2338bdf8'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <aside class="side">
+    <div class="brand">
+      <span class="logo"></span>
+      <div><strong>Aerovane</strong><small>inbound desk · demo</small></div>
+    </div>
+    <nav id="tabs">
+      <button data-tab="inbox" class="active">Inbox <span class="count" id="newCount"></span></button>
+      <button data-tab="followups">Follow-ups <span class="count warn" id="fuCount"></span></button>
+      <button data-tab="dashboard">Dashboard</button>
+      <button data-tab="add">+ New enquiry</button>
+    </nav>
+    <div class="side-foot">
+      <p><b>SLA targets</b><br />A: 15 min · B: 1 h<br />C: 4 h · D: 24 h</p>
+      <button class="link" id="exportBtn">Export CSV</button>
+      <button class="link" id="resetBtn">Reset sample data</button>
+      <p class="tiny">Fictional company and leads. Data stays in this browser.</p>
+    </div>
+  </aside>
+
+  <main>
+    <!-- INBOX -->
+    <section id="inbox" class="tab active">
+      <div class="inbox">
+        <div class="list-pane">
+          <div class="list-tools">
+            <input id="q" placeholder="Search company, person, message" />
+            <div class="chips" id="gradeFilter">
+              <button data-g="" class="on">All</button><button data-g="A">A</button><button data-g="B">B</button><button data-g="C">C</button><button data-g="D">D</button>
+            </div>
+            <select id="statusFilter"><option value="">Any status</option></select>
+          </div>
+          <ul id="leadList" class="lead-list"></ul>
+        </div>
+        <div class="detail-pane" id="detail"></div>
+      </div>
+    </section>
+
+    <!-- FOLLOW-UPS -->
+    <section id="followups" class="tab">
+      <h2>Follow-up queue</h2>
+      <p class="muted">Every routed lead gets a sequence. Overdue steps float to the top.</p>
+      <div id="fuBoard" class="fu-board"></div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="tab">
+      <h2>How the inbound desk is doing</h2>
+      <div class="kpis" id="kpis"></div>
+      <div class="grid two">
+        <div class="card"><h3>Funnel</h3><div id="funnel"></div></div>
+        <div class="card"><h3>Leads per week by route</h3><div id="weekly"></div><div class="legend" id="legend"></div></div>
+      </div>
+      <div class="grid three">
+        <div class="card"><h3>First response time</h3><div id="respHist"></div></div>
+        <div class="card"><h3>SLA met by grade</h3><div id="slaGrade"></div></div>
+        <div class="card"><h3>Where leads go</h3><div id="routeSplit"></div></div>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Conversion by source</h3><table id="bySource"></table></div>
+        <div class="card"><h3>Conversion by industry</h3><table id="byIndustry"></table></div>
+      </div>
+    </section>
+
+    <!-- ADD -->
+    <section id="add" class="tab">
+      <h2>Log a new enquiry</h2>
+      <p class="muted">Paste in what came from the form, chat or email. The score updates as you type.</p>
+      <div class="add-wrap">
+        <form id="addForm" class="card form">
+          <div class="row">
+            <label>Name<input name="name" required value="Ritika Shah" /></label>
+            <label>Job title<input name="title" required value="Head of Operations" /></label>
+          </div>
+          <div class="row">
+            <label>Work email<input name="email" type="email" required value="ritika.shah@westcoastgas.in" /></label>
+            <label>Company<input name="company" required value="WestCoast Gas" /></label>
+          </div>
+          <div class="row three">
+            <label>Industry<select name="industry"></select></label>
+            <label>Company size<select name="companySize"></select></label>
+            <label>Region<select name="region"></select></label>
+          </div>
+          <div class="row three">
+            <label>Source<select name="source"></select></label>
+            <label>Budget<select name="budget"></select></label>
+            <label>Timeline<select name="timeline"></select></label>
+          </div>
+          <label>Message<textarea name="message" rows="5" required>We operate 180 km of gas pipeline and 6 compressor stations in Gujarat. Looking at autonomous drone inspection for leak and corrosion checks. Want to run a pilot this quarter.</textarea></label>
+          <div class="actions"><button class="btn primary" type="submit">Add to inbox</button></div>
+        </form>
+        <div class="card preview" id="preview"></div>
+      </div>
+    </section>
+  </main>
+  <div id="toast" class="toast"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
