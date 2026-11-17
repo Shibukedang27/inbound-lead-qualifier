@@ -1,0 +1,12 @@
+{
+  "name": "inbound-lead-qualifier",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Score, route and follow up on inbound enquiries for a drone autonomy company.",
+  "scripts": {
+    "start": "npx serve . -l 5174",
+    "test": "node --test tests/*.test.js"
+  },
+  "license": "MIT"
+}
